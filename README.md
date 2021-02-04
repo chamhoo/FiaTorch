@@ -31,7 +31,7 @@ hyperopt
 |Train         |Merge     |
 |--------------|----------|
 |model['Name0']|\|        |
-|model['Name1']|+ merge --|
+|model['N ame1']|+ merge --|
 |model['Name2']|\|        |
 
 > Pipeline
@@ -50,9 +50,8 @@ hyperopt
 ├─module1  
 │&emsp;├─model1  
 │&emsp;│&emsp;├─parameter  
-│&emsp;│&emsp;├─output  
-│&emsp;│&emsp;└─model1.log  
-│&emsp;│&emsp;&emsp;&emsp;└─statue  
+│&emsp;│&emsp;└─output  
+│&emsp;│
 │&emsp;├─model2  
 │&emsp;└─stacking_model  
 │&emsp;&emsp;&emsp;└─parameter  
@@ -69,104 +68,115 @@ hyperopt
 + **\_\_name\_\_:**
 + **\_\_model_dic\_\_:**
 
->#### fiat.Block.data.loader(x, y, batch_size=64, cv=5)  
+>### fiat.Block.data.loader(data, type, batch_size=64, cv=5)  
 
 #### Parameters  
 
-+ **x:** dtype in [str, numpy.array, [list of str], [list of numpy.array]]
-+ **y:** dtype in [str, numpy.array, [list of str], [list of numpy.array]]
-
++ **data:** dtype in [str, numpy.array, [list of str], [list of numpy.array]]
++ **type:** "x" or "y"
 + **batch_size:**
-
 + **cv:**
 
 #### Return
 
-None
++ None
 
 #### Print
 
+```console
 "The shape of x is {x_shape}"  
 "The shape of y is {y_shape}"
+```
 
->>fiat.Block.add_model(model, name)  
+>### fiat.Block.data.link(from, rules, type, batch_size, cv)
+
+#### Parameters  
+
++ **from:** str, block name
++ **rules:** f
++ **type:** "x", "y"
++ **batch_size:**
++ **cv:**
+
+#### Return
+
++ None
+
+>### fiat.Block.add_model(model, name)  
 
 #### Parameters
 
-+ **model:** 
-
++ **model:**  
 + **name:** str
 
 #### Return
 
-None
++ None
 
->>fiat.Block.save()  
+>### fiat.Block.stacking(model)
 
->>fiat.Block.load()  
+如果只有一个model，则直接输出。默认sklearn linear
 
->>fiat.Block.merge()  
+#### Parameters
 
->>>Parameters
++ **model:** a sklearn model
 
+>### **CLASS** fiat.model  
 
+>### fiat.model.feature_engineering  
 
-### Model
+>### fiat.model.search  
 
->fiat.model  
-
->>fiat.model.feature_engineering  
-
->>fiat.model.search  
-
->>fiat.model.save  
-
->>fiat.model.load  
-
-### task
-
->fiat.task(path)
+### **CLASS** fiat.task(path)
 
 + **\_\_rules:\_\_**
 
->>> Parameters  
+#### Parameters  
 
 + **\_\_path\_\_:**, str, default = './task{eight random number}'  
 
->>> Return  
+#### Return  
 
-None
++ None
 
->>fiat.task.add_rule()
+>### fiat.task.predict(x, cuda=True)  
 
->>fiat.task.predict(x, cuda=True)  
-
->>> Parameters
+#### Parameters
 
 + **x:** 
 
 + **cuda:** 
 
->>> Return
+#### Return
 
 perdiction, numpy.array
 
->>fiat.task.show()  
+>### fiat.task.structure()  
 
->>> Parameters
+#### Parameters
 
-None
++ None
 
->>> Return
+#### Return
 
-None
++ None
 
->>fiat.task.isbreak()
+>### fiat.task.show()  
 
->>> Parameters
+#### Parameters
 
-None
++ None
 
->>> Return
+#### Return
 
-None
++ None
+
+>### fiat.task.isbreak()
+
+#### Parameters
+
++ None
+
+#### Return
+
++ None

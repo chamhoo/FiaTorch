@@ -16,6 +16,7 @@ FiaTorch, containing a serise of feesible lightweight components, is an open-sou
 
 ## Prerequisite of package
 
+tqdm
 numpy  
 pandas  
 scikit-learn  

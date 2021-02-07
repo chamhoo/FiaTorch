@@ -5,6 +5,9 @@ from numpy.random import randint
 
 
 def make_new(_type, path):
+    # status 0, 2: Fail and exit
+    # status 1: old
+    # status 3: init new
     if os.path.isdir(path):
         print(f'This {_type} is exist, [delete[D]/load[L]/quit[Q]] ?:')
         status = 0
@@ -12,14 +15,14 @@ def make_new(_type, path):
             if status == 0:
                 f = input()
                 if f in ['delete', 'D', 'd']:
-                    status += 1
                     print('This "delete" operation is permanent, do you want to continue? [Y/N]:')
                     if input() in ['Y', 'y', 'yes']:
                         shutil.rmtree(path)
                         os.mkdir(path)
-                    else: status += 1
-                elif f in ['load', 'l', 'L']: status += 1
-                elif f in ['quit', 'Q', 'q']: status += 2
+                        status = 3
+                    else: status = 2
+                elif f in ['load', 'l', 'L']: status = 1
+                elif f in ['quit', 'Q', 'q']: status = 2
                 else:
                     print('no such option')
             if status == 2: 
@@ -27,6 +30,8 @@ def make_new(_type, path):
                 exit()
     else:
         os.mkdir(path)
+        status = 3
+    return status
 
 
 class Block(object):
@@ -51,9 +56,9 @@ class Task(dict):
         make_new("task", self.__path__)
 
     def add_block(self, name):
-        make_new('block', os.path.join(self.__path__, name))
+        status = make_new('block', os.path.join(self.__path__, name))
         self.head_block.append(name)
-        self.__setitem__(k=name, v=Block(name=name))
+        self[name] = Block(name)
 
     
 

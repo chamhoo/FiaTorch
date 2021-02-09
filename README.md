@@ -57,8 +57,7 @@ hyperopt
 │&emsp;└─stacking_model  
 │&emsp;&emsp;&emsp;└─parameter  
 ├─module2  
-└─task.log  
-&emsp;└─distributional_rules.log  
+└─connection.lk
 
 ## API
 

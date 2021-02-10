@@ -11,9 +11,25 @@ class Block(object):
         self.__name__ = name
 
 
+class ObjControl(object):
+    def __init__(self, path, obj) -> None:
+        self.path = path
+        self.obj = obj
+        self.save()
+
+    def save(self):
+        if os.path.isfile(self.path):
+            os.remove(self.path)
+        with open(self.path, 'wb') as f:
+            pickle.dump(self.obj, f)
+
+    def load(self):
+        with open(self.path, 'rb') as f:
+            return pickle.load(f)
+
+
 class Link(object):
     def __init__(self) -> None:
-        super().__init__()
         self.list = list()
 
     def add(self, from_b, to_b, func):
@@ -46,32 +62,26 @@ class Link(object):
     def before(self, name):
         return self.__connect__(False, name)
 
-    def save(self, path):
-        with open(path, 'wb') as f:
-            pickle.dump(self.list, f)
-            
-    def load(self, path):
-        with open(path, 'rb') as f:
-            self.list = pickle.load(f)
-
 
 class Task(dict):
 
     def __init__(self, path=None) -> None:
         super().__init__()
-        self.head_block = set()
-        # init path
+        # path
         if path is None:
-            default_path = '.\/task' + str(randint(0, 10*6))
-            self.__path__ = default_path
+            self.__path__ = '.\/task' + str(randint(0, 10*6))
         else:
             self.__path__ = path
-        # mkdir if not exist
-        if not os.path.isdir(self.__path__):
-            os.mkdir(self.__path__)
-            self.link = Link()
-        else:
-            self.link = Link.load(self.__path__ + '\/connection.lk')
+        # if task is exist, load it
+        if os.path.isdir(self.__path__):
+
+        # link
+        self.link = Link()
+        self.head_block = set()
+        # save
+        self.head_saver = Saver(self.__path__ + '\/head.sv')
+        self.link_saver = Saver(self.__path__ + '\/link.sv')
+
 
     def add_block(self, name):
         # if block is exist, DO NOTHING
@@ -154,5 +164,6 @@ if __name__ == "__main__":
     #t.link.add('4', '6', np.abs)
     #t.link.add('6', '7', np.abs)
     #t.link.add('5', '7', np.abs)
-
+    t.head_block = {'1'}
+    print(t.link.list)
     print(t.BFS())

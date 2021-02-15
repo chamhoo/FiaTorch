@@ -48,16 +48,18 @@ hyperopt
 > Path
 
 ..\/task_path  
-├─module1  
+├─block1  
 │&emsp;├─model1  
 │&emsp;│&emsp;├─parameter  
 │&emsp;│&emsp;└─output  
 │&emsp;│
 │&emsp;├─model2  
 │&emsp;└─stacking_model  
+│&emsp;&emsp;&emsp;├─output
 │&emsp;&emsp;&emsp;└─parameter  
-├─module2  
-└─connection.lk
+├─block2  
+├─head.sv
+└─link.sv
 
 ## API
 

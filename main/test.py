@@ -1,7 +1,9 @@
-path = 'ta\/connection.lk'
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
-import pickle
-
-with open(path, 'rb') as f:
-    print(pickle.load(f))
+G = nx.Graph()
+G.add_edges_from([(1, 2), (1, 3)])
+print(list(G.nodes))
+nx.draw(G, with_labels=True, font_weight='bold')
+plt.show()
